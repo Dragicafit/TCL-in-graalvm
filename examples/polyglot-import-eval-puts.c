@@ -11,7 +11,7 @@ POLYGLOT_DECLARE_STRUCT(PolyglotEvalPutMemberPuts);
 
 static struct PolyglotEvalPutMemberPuts* polyglotEvalPutMemberPuts;
 
-static int printFromTCL(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+static int printFromTCL(void *dummy, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
     if (objc != 1) {
         Tcl_WrongNumArgs(interp, 1, objv, "");
         return TCL_ERROR;

@@ -1,7 +1,7 @@
 CC = $(LLVM_TOOLCHAIN)/clang++
 
 POLYGLOT_C = export_for
-POLYGLOT_TCL = require-for
+POLYGLOT_TCL = polyglot-require-for
 
 #NB_ITERATIONS = 1000000
 

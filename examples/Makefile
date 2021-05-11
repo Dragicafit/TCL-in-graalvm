@@ -3,55 +3,55 @@ all: time-c-for time-c-for-shortCompil time-c-tcl-interpreter-for time-c-tcl-int
 
 
 time-c-for:
-	cd c-for/ && make clean && make time
+	cd c-for/ && make clean; make time
 
 time-c-for-shortCompil:
-	cd c-for-shortCompil/ && make clean && make time
+	cd c-for-shortCompil/ && make clean; make time
 
 time-c-tcl-interpreter-for:
-	cd c-tcl-interpreter-for/ && make clean && make time
+	cd c-tcl-interpreter-for/ && make clean; make time
 
 time-c-tcl-interpreter-for-dynamic:
-#	cd c-tcl-interpreter-for-dynamic/ && make clean && make time
+#	cd c-tcl-interpreter-for-dynamic/ && make clean; make time
 
 time-c-tcl-native-for:
-	cd c-tcl-native-for/ && make clean && make time
+	cd c-tcl-native-for/ && make clean; make time
 
 time-c-tcl-native-for-dynamic:
-#	cd c-tcl-native-for-dynamic/ && make clean && make time
+#	cd c-tcl-native-for-dynamic/ && make clean; make time
 
 time-c-tcl-native-interpreter-for:
-	cd c-tcl-native-interpreter-for/ && make clean && make time
+	cd c-tcl-native-interpreter-for/ && make clean; make time
 
 time-c-tcl-native-interpreter-for-dynamic:
-#	cd c-tcl-native-interpreter-for-dynamic/ && make clean && make time
+#	cd c-tcl-native-interpreter-for-dynamic/ && make clean; make time
 
 time-cpp-tcl-interpreter-for:
-#	cd cpp-tcl-interpreter-for/ && make clean && make time
+#	cd cpp-tcl-interpreter-for/ && make clean; make time
 
 time-cpp-tcl-interpreter-for-dynamic:
-#	cd cpp-tcl-interpreter-for-dynamic/ && make clean && make time
+#	cd cpp-tcl-interpreter-for-dynamic/ && make clean; make time
 
 time-cpp-tcl-native-for:
-#	cd cpp-tcl-native-for/ && make clean && make time
+#	cd cpp-tcl-native-for/ && make clean; make time
 
 time-java-c-for:
-	cd java-c-for/ && make clean && make time
+	cd java-c-for/ && make clean; make time
 
 time-java-c-tcl-interpreter-for:
-	cd java-c-tcl-interpreter-for/ && make clean && make time
+	cd java-c-tcl-interpreter-for/ && make clean; make time
 
 time-java-c-tcl-interpreter-for-dynamic:
-#	cd java-c-tcl-interpreter-for-dynamic/ && make clean && make time
+#	cd java-c-tcl-interpreter-for-dynamic/ && make clean; make time
 
 time-java-c-tcl-interpreter-for-optimize:
-#	cd java-c-tcl-interpreter-for-optimize/ && make clean && make time
+#	cd java-c-tcl-interpreter-for-optimize/ && make clean; make time
 
 time-java-c-tcl-interpreter-for-optimize-dynamic:
-#	cd java-c-tcl-interpreter-for-optimize-dynamic/ && make clean && make time
+#	cd java-c-tcl-interpreter-for-optimize-dynamic/ && make clean; make time
 
 time-java-for:
-	cd java-for/ && make clean && make time
+	cd java-for/ && make clean; make time
 
 time-tcl-for:
-	cd tcl-for/ && make clean && make time
+	cd tcl-for/ && make clean; make time

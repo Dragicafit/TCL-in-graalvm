@@ -32,28 +32,15 @@ static int getVal(void *dummy, Tcl_Interp *interp, int objc, Tcl_Obj *const objv
     return TCL_OK;
 }
 
-int main(int argc, const char *argv[]) {
+DLLEXPORT int Export_polyglot_import_for_Init(Tcl_Interp *interp)	{
     polyglotEvalPutMemberFor = polyglot_as_PolyglotEvalPutMemberFor(polyglot_import("polyglotEvalPutMemberFor"));
 
     int code;
 
-    Tcl_FindExecutable(argv[0]);
-    Tcl_Interp *interp = Tcl_CreateInterp();
     Tcl_Init(interp);
 
     Tcl_CreateObjCommand(interp, "polyglot::increment", increment, NULL, NULL);
     Tcl_CreateObjCommand(interp, "polyglot::getVal", getVal, NULL, NULL);
-
-    code = Tcl_EvalFile(interp, POLYGLOT_TCL);
-    if (code == TCL_ERROR) {
-        Tcl_Channel chan = Tcl_GetStdChannel(TCL_STDERR);
-        if (chan) {
-            Tcl_WriteObj(chan, Tcl_GetObjResult(interp));
-            Tcl_WriteChars(chan, "\n", 1);
-        }
-    }
-
-    Tcl_DeleteInterp(interp);
-
-    return 0;
+    
+    return Tcl_PkgProvide(interp, POLYGLOT_C, "1.0");
 }

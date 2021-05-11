@@ -1,7 +1,7 @@
 CC = $(LLVM_TOOLCHAIN)/clang
 
 POLYGLOT_C = export_puts
-POLYGLOT_TCL = require-puts
+POLYGLOT_TCL = polyglot-require-puts
 
 BUILD_FOLDER = build
 TCL_INIT = Tcl_Init(interp);
@@ -20,7 +20,7 @@ $(BUILD_FOLDER)/$(POLYGLOT_C).o: $(BUILD_FOLDER)/$(POLYGLOT_C).c
 	cd $(BUILD_FOLDER)/ && $(CC) -O3 -c $(POLYGLOT_C).c -DUSE_TCL_STUBS -DPOLYGLOT_C=\"$(POLYGLOT_C)\" -o $(POLYGLOT_C).o
 
 $(BUILD_FOLDER)/lib$(POLYGLOT_C).so: $(BUILD_FOLDER)/$(POLYGLOT_C).o
-	cd $(BUILD_FOLDER)/ && $(CC) -O3 -shared $(POLYGLOT_C).o -ltclstub8.6 -o lib$(POLYGLOT_C).so
+	cd $(BUILD_FOLDER)/ && $(CC) -O3 -shared $(POLYGLOT_C).o -ltcl -ltclstub8.6 -o lib$(POLYGLOT_C).so
 
 $(BUILD_FOLDER)/pkgIndex.tcl: $(BUILD_FOLDER)/lib$(POLYGLOT_C).so
 	cd $(BUILD_FOLDER)/ && printf "pkg_mkIndex ." | tclsh && printf "load lib$(POLYGLOT_C).so $(POLYGLOT_C)" | tclsh

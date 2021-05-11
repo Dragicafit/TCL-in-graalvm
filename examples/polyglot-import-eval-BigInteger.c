@@ -24,7 +24,7 @@ struct PolyglotEvalPutMemberBigInteger* polyglotEvalPutMemberBigInteger;
 struct BigInteger_class* BigIntegerClass;
 void* arrayType;
 
-static int passBigInteger(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+static int passBigInteger(void *dummy, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
     if (objc != 2) {
         return TCL_ERROR;
     }

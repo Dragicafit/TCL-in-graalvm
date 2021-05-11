@@ -13,14 +13,14 @@ BUILD_FOLDER = build
 .PHONY: all
 all: $(BUILD_FOLDER)/$(POLYGLOT_C) $(BUILD_FOLDER)/$(POLYGLOT_JAVA).class
 
+$(BUILD_FOLDER)/$(POLYGLOT_JAVA).java: ../$(POLYGLOT_JAVA).java
+	mkdir -p $(BUILD_FOLDER)/ && cp $^ $$_
+
 $(BUILD_FOLDER)/$(POLYGLOT_C).c: ../$(POLYGLOT_C).c
 	mkdir -p $(BUILD_FOLDER)/ && cp $^ $$_
 
 $(BUILD_FOLDER)/$(POLYGLOT_TCL).tcl: ../$(POLYGLOT_TCL).tcl
 	mkdir -p $(BUILD_FOLDER)/ && cat $^ | sed -e 's/NB_ITERATIONS/$(NB_ITERATIONS)/g' > $@
-
-$(BUILD_FOLDER)/$(POLYGLOT_JAVA).java: ../$(POLYGLOT_JAVA).java
-	mkdir -p $(BUILD_FOLDER)/ && cp $^ $$_
 
 $(BUILD_FOLDER)/$(POLYGLOT_C).ll: $(BUILD_FOLDER)/$(POLYGLOT_C).c $(BUILD_FOLDER)/$(POLYGLOT_TCL).tcl
 	cd $(BUILD_FOLDER)/ && $(CC) -S $(POLYGLOT_C).c -emit-llvm -DPOLYGLOT_TCL=\"$(POLYGLOT_TCL).tcl\" -o $(POLYGLOT_C).ll
