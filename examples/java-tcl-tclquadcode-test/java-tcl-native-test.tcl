@@ -14,10 +14,19 @@ namespace eval polyglot {
 }
 
 proc main {} {
-    for {set i 0} {$i < NB_ITERATIONS} {incr i} {
+    for {set i 0} {$i < 1000000} {incr i} {
         polyglot::increment
     }
     puts [polyglot::getVal]
 }
 
-main
+lappend auto_path /opt/tclquadcode
+package require tclquadcode
+
+puts "BEFORE COMPILATION, using Tcl [package require Tcl]"
+puts [time {main} 1]
+
+LLVM optimise polyglot::* main
+
+puts "AFTER COMPILATION"
+puts [time {main} 1]

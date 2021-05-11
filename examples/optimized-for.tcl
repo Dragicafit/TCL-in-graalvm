@@ -1,12 +1,15 @@
 namespace eval polyglot {
-    set val 0
+    variable val 0
+    namespace export increment getVal
 
     proc increment {} {
-        incr polyglot::val
+        variable val
+        incr val
     }
 
     proc getVal {} {
-        return $polyglot::val
+        variable val
+        return $val
     }
 }
 

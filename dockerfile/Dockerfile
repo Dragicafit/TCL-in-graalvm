@@ -47,11 +47,6 @@ RUN mkdir -p /opt/tclquadcode && \
 	cd /opt/tclquadcode && \
     fossil open .repo
 
-RUN mkdir -p /opt/tclquadcode && \
-	fossil clone https://core.tcl-lang.org/tclquadcode /opt/tclquadcode/.repo --user anonymous && \
-	cd /opt/tclquadcode && \
-    fossil open .repo
-
 COPY . "/root"
 RUN echo "export LLVM_TOOLCHAIN=\"\$(\$GRAALVM_HOME/bin/lli --print-toolchain-path)\"" >> /root/.bashrc
 RUN bash -c ". /root/.bashrc"
