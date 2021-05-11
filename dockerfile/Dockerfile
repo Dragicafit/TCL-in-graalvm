@@ -1,0 +1,61 @@
+FROM archlinux
+
+ARG JAVA_VERSION="21.1.0.r11-grl"
+
+RUN pacman -Syyu --noconfirm
+RUN pacman -S --noconfirm git fossil maven zip unzip z3 base-devel tcl cmake
+
+RUN git clone https://github.com/dkfellows/llvmtcl.git
+RUN git clone https://github.com/flightaware/cpptcl
+RUN curl -O https://releases.llvm.org/9.0.0/clang+llvm-9.0.0-x86_64-pc-linux-gnu.tar.xz
+RUN tar -xf clang+llvm-9.0.0-x86_64-pc-linux-gnu.tar.xz
+
+RUN curl -s "https://get.sdkman.io" | bash
+
+RUN bash -c ". /root/.sdkman/bin/sdkman-init.sh && \
+    yes | sdk install java $JAVA_VERSION && \
+    sdk flush temp && \
+    sdk flush archives"
+
+ENV GRAALVM_HOME="/root/.sdkman/candidates/java/current"
+ENV PATH="$GRAALVM_HOME/bin:$PATH"
+ENV JAVA_HOME="$GRAALVM_HOME"
+
+RUN gu install llvm-toolchain
+RUN gu install native-image
+
+RUN cd llvmtcl && \
+    ./configure --with-llvm-config=/clang+llvm-9.0.0-x86_64-pc-linux-gnu/bin/llvm-config && \
+    make && \
+    make test && \
+    make install
+
+RUN cd cpptcl && \
+    make && \
+    make test && \
+    make install
+
+run mkdir -p /tmp/build /tmp/build/llvmtcl /tmp/build/tclquadcode /tmp/build/tcllib /tmp/build/fossil && \
+    fossil clone https://core.tcl-lang.org/tcllib /tmp/build/tcllib/.repo --user anonymous && \
+    cd /tmp/build/tcllib && \
+    fossil open /tmp/build/tcllib/.repo && \
+    ./configure --prefix=/usr && \
+    make install
+
+RUN mkdir -p /opt/tclquadcode && \
+	fossil clone https://core.tcl-lang.org/tclquadcode /opt/tclquadcode/.repo --user anonymous && \
+	cd /opt/tclquadcode && \
+    fossil open .repo
+
+RUN mkdir -p /opt/tclquadcode && \
+	fossil clone https://core.tcl-lang.org/tclquadcode /opt/tclquadcode/.repo --user anonymous && \
+	cd /opt/tclquadcode && \
+    fossil open .repo
+
+COPY . "/root"
+RUN echo "export LLVM_TOOLCHAIN=\"\$(\$GRAALVM_HOME/bin/lli --print-toolchain-path)\"" >> /root/.bashrc
+RUN bash -c ". /root/.bashrc"
+
+ENV SL_BUILD_NATIVE=false
+
+ENV NB_ITERATIONS=1000000
