@@ -51,6 +51,6 @@ COPY . "/root"
 RUN echo "export LLVM_TOOLCHAIN=\"\$(\$GRAALVM_HOME/bin/lli --print-toolchain-path)\"" >> /root/.bashrc
 RUN bash -c ". /root/.bashrc"
 
-ENV SL_BUILD_NATIVE=false
+ENV TCL_BUILD_NATIVE=false
 
 ENV NB_ITERATIONS=1000000
